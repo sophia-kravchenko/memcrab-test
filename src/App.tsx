@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import CreateForm from './components/form/CreateForm';
-import ConsumerComponent from './components/table/ConsumerComponent';
+import Table from './components/table/Table';
 
 function App() {
   return (
     <div className="App">
       <h1>Frontend React Test Task</h1>
       <CreateForm />
-      <ConsumerComponent />
+      <Table />
     </div>
   );
 }

@@ -14,15 +14,11 @@ type FormContextType = {
 export const FormContext = createContext<FormContextType | null>(null);
 
 const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [formValues, setFormValues] = useState<FormData[]>([{
-    rows: '',
-    columns: '',
-    highlights: ''
-  }]);
+  const [formValues, setFormValues] = useState<FormData[]>([]);
 
   const saveForm = (data: FormData) => {
     const newTodo: FormData = { ...data };
-    setFormValues([...formValues, newTodo])
+    setFormValues([newTodo]);
   };
 
   return (
