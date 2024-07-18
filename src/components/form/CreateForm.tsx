@@ -1,16 +1,11 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-
-interface FormData {
-  rows: number | string;
-  columns: number | string;
-  highlights: number | string;
-}
-
+import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { FormData, FormContext } from '../../context/FormContext';
 interface CreateFormProps {
 
 }
 
 const CreateForm = () => {
+  const context = useContext(FormContext);
   const [formData, setFormData] = useState<FormData>({
     rows: '',
     columns: '',
@@ -27,7 +22,7 @@ const CreateForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    context!.saveForm(formData);
   };
 
   return (
