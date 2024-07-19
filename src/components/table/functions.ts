@@ -28,3 +28,15 @@ export const calculateColumnAverages = (matrix: { id: number; amount: number }[]
 
   return columnSums.map(sum => sum / M);
 };
+
+export const findNearestCells = (matrix: { id: number; amount: number }[][], targetValue: number, x: number) => {
+  const allCells = matrix.flat();
+  const sortedCells = allCells
+    .map(cell => ({
+      ...cell,
+      difference: Math.abs(cell.amount - targetValue),
+    }))
+    .sort((a, b) => a.difference - b.difference);
+
+  return sortedCells.slice(0, x + 1).map(cell => cell.id);
+};

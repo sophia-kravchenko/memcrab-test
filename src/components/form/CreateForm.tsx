@@ -57,7 +57,7 @@ const CreateForm = () => {
           value={formData.highlights}
           onChange={handleChange}
           min={0}
-          max={100}
+          max={Number(formData.rows) * Number(formData.columns) - 1}
         />
       </div>
       <button type='submit'>Submit</button>
