@@ -18,7 +18,7 @@ export const calculateRowSums = (matrix: { id: number; amount: number }[][]) => 
 };
 
 export const calculateColumnAverages = (matrix: { id: number; amount: number }[][], M: number) => {
-  const columnSums = Array(matrix[0].length).fill(0);
+  const columnSums = Array(matrix[0]?.length).fill(0);
 
   matrix.forEach(row => {
     row.forEach((cell, columnIndex) => {

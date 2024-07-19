@@ -1,27 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../context/FormContext';
 import { generateMatrix, calculateRowSums, calculateColumnAverages } from './functions';
 
 const Table = () => {
   const context = useContext(FormContext);
-
-  if (!context) {
-    return <div>No context available</div>;
-  }
-
-  const { arguments: formDataArray } = context;
+  const { arguments: formDataArray } = context!;
   const formData = formDataArray[formDataArray.length - 1];
-
-  if (!formData || formData.rows === '' || formData.columns === '') {
-    return <div>No data available</div>;
-  }
 
   const M = Number(formData.rows);
   const N = Number(formData.columns);
 
-  const matrix = generateMatrix(M, N);
-  const rowSums = calculateRowSums(matrix);
-  const columnAverages = calculateColumnAverages(matrix, M);
+  const [matrix, setMatrix] = useState(generateMatrix(M, N));
+  const [rowSums, setRowSums] = useState(calculateRowSums(matrix));
+  const [columnAverages, setColumnAverages] = useState(calculateColumnAverages(matrix, M));
+
+  useEffect(() => {
+    if (M && N) {
+      const newMatrix = generateMatrix(M, N);
+      setMatrix(newMatrix);
+      setRowSums(calculateRowSums(newMatrix));
+      setColumnAverages(calculateColumnAverages(newMatrix, M));
+    }
+  }, [M, N])
+
+  const handleCellClick = (rowIndex: number, colIndex: number) => {
+    const newMatrix = [...matrix];
+    newMatrix[rowIndex][colIndex].amount += 1;
+    setMatrix(newMatrix);
+    setRowSums(calculateRowSums(newMatrix));
+    setColumnAverages(calculateColumnAverages(newMatrix, M));
+  };
+
+  if (!formData || formData.rows === '' || formData.columns === '') {
+    return <div>No data available</div>;
+  }
 
   return (
     <div>
@@ -41,7 +53,9 @@ const Table = () => {
             <tr key={rowIndex}>
               <td>Row {rowIndex + 1}</td>
               {row.map((cell, columnIndex) => (
-                <td key={columnIndex}>{cell.amount}</td>
+                <td key={cell.id} onClick={() => handleCellClick(rowIndex, columnIndex)}>
+                  {cell.amount}
+                </td>
               ))}
               <td>{rowSums[rowIndex]}</td>
             </tr>
@@ -58,7 +72,5 @@ const Table = () => {
     </div>
   );
 };
-
-
 
 export default Table;
