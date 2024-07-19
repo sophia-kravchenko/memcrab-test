@@ -13,6 +13,7 @@ const Table = () => {
   const [matrix, setMatrix] = useState(generateMatrix(M, N));
   const [rowSums, setRowSums] = useState(calculateRowSums(matrix));
   const [columnAverages, setColumnAverages] = useState(calculateColumnAverages(matrix, M));
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
 
   useEffect(() => {
     if (M && N) {
@@ -31,10 +32,18 @@ const Table = () => {
     setColumnAverages(calculateColumnAverages(newMatrix, M));
   };
 
+  const handleMouseOver = (rowIndex: number) => {
+    setHoveredRow(rowIndex);
+  };
+
+  const handleMouseOut = () => {
+    setHoveredRow(null);
+  };
+
   if (!formData || formData.rows === '' || formData.columns === '') {
     return <div>No data available</div>;
   }
-
+  // console.log(percents)
   return (
     <div>
       <h2>Generated Table</h2>
@@ -52,12 +61,24 @@ const Table = () => {
           {matrix.map((row, rowIndex) => (
             <tr key={rowIndex}>
               <td>Row {rowIndex + 1}</td>
-              {row.map((cell, columnIndex) => (
-                <td key={cell.id} onClick={() => handleCellClick(rowIndex, columnIndex)}>
-                  {cell.amount}
-                </td>
-              ))}
-              <td>{rowSums[rowIndex]}</td>
+              {row.map((cell, columnIndex) => {
+                const isHovered = hoveredRow === rowIndex;
+                const percent = (cell.amount / rowSums[rowIndex]) * 100;
+                return (
+                  <td
+                    key={cell.id}
+                    onClick={() => handleCellClick(rowIndex, columnIndex)}
+                    style={{
+                      background: isHovered
+                        ? `linear-gradient(to right, blue ${percent}%, transparent ${percent}%)`
+                        : 'transparent'
+                    }}
+                  >
+                    {isHovered ? `${percent.toFixed(0)}%` : cell.amount}
+                  </td>
+                );
+              })}
+              <td onMouseOver={() => handleMouseOver(rowIndex)} onMouseOut={handleMouseOut}>{rowSums[rowIndex]}</td>
             </tr>
           ))}
           <tr>
