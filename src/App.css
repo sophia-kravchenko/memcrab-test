@@ -1,38 +1,136 @@
+/* color pallete
+5A639C
+7776B3
+9B86BD
+E2BBE9
+FB9AD1
+BC7FCD
+86469C
+*/
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
+  padding: 20px;
+  background-color: #7776B3;
+}
+
+h1 {
+  color: #FB9AD1;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  color: #E2BBE9;
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* FORM STYLES */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+form, .table-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #5A639C;
+  padding: 10px 20px 20px;
+  border-radius: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+label {
+  margin-right: 10px;
+  color: #FB9AD1;
+}
+
+.input-wrapper {
+  width: 33%;
+}
+
+input {
+  width: 60%;
+  background-color: #7776B3;
+  border-radius: 4px;
+  border: 1px solid #7776B3;
+  color: #E2BBE9;
+  padding: 2px 6px;
+}
+
+input:focus-visible {
+  border: 1px solid #FB9AD1;
+  outline: none;
+}
+
+.submit-btn {
+  background-color: #7776B3;
+  border: 1px solid #FB9AD1;
+  color: #E2BBE9;
+  border-radius: 4px;
+  padding: 5px 30px;
+  font-size: medium;
+  margin: 10px auto 0;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #5A639C;
+}
+
+/* TABLE STYLES */
+
+.no-data {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.table-wrapper {
+  margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  border-color: #FB9AD1;
+  margin-top: 10px;
+}
+
+th, .tr-bold {
+  color: #BC7FCD;
+  font-weight: 600;
+}
+
+tr {
+  color: #E2BBE9;
+  text-align: center;
+}
+
+td {
+  padding: 5px;
+}
+
+.sum-av {
+  color: #FB9AD1;
+  font-weight: 600;
+}
+
+.add {
+  background-color: #86469C;
+  border: 1px solid #BC7FCD;
+  color: #E2BBE9;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove {
+  background-color: #891652;
+  border: 1px solid #BC7FCD;
+  color: #E2BBE9;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
 }

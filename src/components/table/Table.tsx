@@ -64,11 +64,11 @@ const Table = () => {
   };
 
   if (!formData || formData.rows === '' || formData.columns === '') {
-    return <div>No data available</div>;
+    return <div className='no-data'>No data available. Choose rows and columns numbers to show table</div>;
   }
 
   return (
-    <div>
+    <div className='table-wrapper'>
       <h2>Generated Table</h2>
       <table border={1}>
         <thead>
@@ -77,14 +77,14 @@ const Table = () => {
             {Array.from({ length: N }, (_, index) => (
               <th key={index}>Column {index + 1}</th>
             ))}
-            <th>Sum</th>
+            <th className='sum-av'>Sum</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {matrix.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              <td>Row {rowIndex + 1}</td>
+              <td className='tr-bold'>Row {rowIndex + 1}</td>
               {row.map((cell, columnIndex) => {
                 const isHovered = hoveredRow === rowIndex;
                 const percent = (cell.amount / rowSums[rowIndex]) * 100;
@@ -95,9 +95,9 @@ const Table = () => {
                 if (isCellHovered) {
                   background = 'purple';
                 } else if (isHovered) {
-                  background = `linear-gradient(to right, blue ${percent}%, transparent ${percent}%)`;
+                  background = `linear-gradient(to right, #86469C ${percent}%, transparent ${percent}%)`;
                 } else if (isNearest) {
-                  background = 'lightgreen';
+                  background = '#BC7FCD';
                 } else {
                   background = 'transparent';
                 }
@@ -117,20 +117,20 @@ const Table = () => {
                   </td>
                 );
               })}
-              <td onMouseOver={() => setHoveredRow(rowIndex)} onMouseOut={() => setHoveredRow(null)}>{rowSums[rowIndex]}</td>
+              <td className='sum-av' onMouseOver={() => setHoveredRow(rowIndex)} onMouseOut={() => setHoveredRow(null)}>{rowSums[rowIndex]}</td>
               <td>
-                <button onClick={() => removeRow(rowIndex)}>Remove Row</button>
+                <button className='remove' onClick={() => removeRow(rowIndex)}>Remove Row</button>
               </td>
             </tr>
           ))}
           <tr>
-            <td>Average</td>
+            <td className='sum-av'>Average</td>
             {columnAverages.map((average, index) => (
-              <td key={index}>{average.toFixed(2)}</td>
+              <td key={index} className='sum-av'>{average.toFixed(2)}</td>
             ))}
             <td></td>
             <td>
-              <button onClick={addRow}>Add Row</button>
+              <button onClick={addRow} className='add'>Add Row</button>
             </td>
           </tr>
         </tbody>

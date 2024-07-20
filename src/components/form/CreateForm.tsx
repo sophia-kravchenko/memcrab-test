@@ -1,8 +1,5 @@
 import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { FormData, FormContext } from '../../context/FormContext';
-interface CreateFormProps {
-
-}
 
 const CreateForm = () => {
   const context = useContext(FormContext);
@@ -27,40 +24,43 @@ const CreateForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Rows</label>
-        <input
-          type='number'
-          name='rows'
-          value={formData.rows}
-          onChange={handleChange}
-          min={0}
-          max={100}
-        />
+      <h2>Create Table</h2>
+      <div className='form-wrapper'>
+        <div className='input-wrapper'>
+          <label>Rows</label>
+          <input
+            type='number'
+            name='rows'
+            value={formData.rows}
+            onChange={handleChange}
+            min={0}
+            max={100}
+          />
+        </div>
+        <div className='input-wrapper'>
+          <label>Columns</label>
+          <input
+            type='number'
+            name='columns'
+            value={formData.columns}
+            onChange={handleChange}
+            min={0}
+            max={100}
+          />
+        </div>
+        <div className='input-wrapper'>
+          <label>Highlights</label>
+          <input
+            type='number'
+            name='highlights'
+            value={formData.highlights}
+            onChange={handleChange}
+            min={0}
+            max={Number(formData.rows) * Number(formData.columns) - 1}
+          />
+        </div>
       </div>
-      <div>
-        <label>Columns</label>
-        <input
-          type='number'
-          name='columns'
-          value={formData.columns}
-          onChange={handleChange}
-          min={0}
-          max={100}
-        />
-      </div>
-      <div>
-        <label>Highlights</label>
-        <input
-          type='number'
-          name='highlights'
-          value={formData.highlights}
-          onChange={handleChange}
-          min={0}
-          max={Number(formData.rows) * Number(formData.columns) - 1}
-        />
-      </div>
-      <button type='submit'>Submit</button>
+      <button type='submit' className='submit-btn'>Submit</button>
     </form>
   );
 };
