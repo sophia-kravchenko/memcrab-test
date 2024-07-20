@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../context/FormContext';
 import { generateMatrix, calculateRowSums, calculateColumnAverages, findNearestCells } from './functions';
+import { v4 as uuidv4 } from 'uuid';
 
 const Table = () => {
   const context = useContext(FormContext);
@@ -16,7 +17,7 @@ const Table = () => {
   const [columnAverages, setColumnAverages] = useState(calculateColumnAverages(matrix, M));
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{ rowIndex: number; colIndex: number } | null>(null);
-  const [nearestCells, setNearestCells] = useState<number[]>([]);
+  const [nearestCells, setNearestCells] = useState<string[]>([]);
 
   useEffect(() => {
     if (M && N) {
@@ -47,6 +48,21 @@ const Table = () => {
     setNearestCells([]);
   };
 
+  const addRow = () => {
+    const newRow = Array.from({ length: N }, () => ({ id: uuidv4(), amount: Math.floor(Math.random() * 900) + 100 }));
+    const newMatrix = [...matrix, newRow];
+    setMatrix(newMatrix);
+    setRowSums(calculateRowSums(newMatrix));
+    setColumnAverages(calculateColumnAverages(newMatrix, newMatrix.length));
+  };
+
+  const removeRow = (rowIndex: number) => {
+    const newMatrix = matrix.filter((_, index) => index !== rowIndex);
+    setMatrix(newMatrix);
+    setRowSums(calculateRowSums(newMatrix));
+    setColumnAverages(calculateColumnAverages(newMatrix, newMatrix.length));
+  };
+
   if (!formData || formData.rows === '' || formData.columns === '') {
     return <div>No data available</div>;
   }
@@ -62,6 +78,7 @@ const Table = () => {
               <th key={index}>Column {index + 1}</th>
             ))}
             <th>Sum</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +118,9 @@ const Table = () => {
                 );
               })}
               <td onMouseOver={() => setHoveredRow(rowIndex)} onMouseOut={() => setHoveredRow(null)}>{rowSums[rowIndex]}</td>
+              <td>
+                <button onClick={() => removeRow(rowIndex)}>Remove Row</button>
+              </td>
             </tr>
           ))}
           <tr>
@@ -109,6 +129,9 @@ const Table = () => {
               <td key={index}>{average.toFixed(2)}</td>
             ))}
             <td></td>
+            <td>
+              <button onClick={addRow}>Add Row</button>
+            </td>
           </tr>
         </tbody>
       </table>
