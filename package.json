@@ -1,5 +1,6 @@
 {
-  "name": "test",
+  "homepage": "https://sophia-kravchenko.github.io/memcrab-test",
+  "name": "memcrab-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
