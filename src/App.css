@@ -13,6 +13,7 @@ BC7FCD
 }
 
 .App {
+  height: 100vh;
   padding: 20px;
   background-color: #7776B3;
 }
@@ -89,13 +90,19 @@ input:focus-visible {
 }
 
 .table-wrapper {
+  overflow: auto;
   margin-top: 20px;
+  max-height: 70%;
 }
 
 table {
   border-collapse: collapse;
   border-color: #FB9AD1;
   margin-top: 10px;
+}
+
+th {
+  padding: 5px;
 }
 
 th, .tr-bold {

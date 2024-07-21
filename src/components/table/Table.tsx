@@ -33,7 +33,7 @@ const Table = () => {
     newMatrix[rowIndex][colIndex].amount += 1;
     setMatrix(newMatrix);
     setRowSums(calculateRowSums(newMatrix));
-    setColumnAverages(calculateColumnAverages(newMatrix, M));
+    setColumnAverages(calculateColumnAverages(newMatrix, newMatrix.length));
   };
 
   const handleMouseOverCell = (rowIndex: number, colIndex: number) => {
